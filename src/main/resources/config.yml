@@ -22,6 +22,9 @@ subtitles:
   '300' : "§6Restarting in 5 minutes"
   '3' : "§6Restarting now..."
 
+# Whether to ignore players who are currently online
+ignorePlayers: "false"
+
 # The commands that will be executed at restart time
 commands:
 - 'restart'

@@ -22,6 +22,7 @@ public final class SimpleAutoRestart extends JavaPlugin {
     private Map<Long, String> titles = new HashMap<>();
     private Map<Long, String> subtitles = new HashMap<>();
     private List<String> commands = new ArrayList<>();
+    private boolean ignorePlayers;
 
     /**
      * Function executed when the plugin is enabling.
@@ -54,7 +55,7 @@ public final class SimpleAutoRestart extends JavaPlugin {
 
         // Schedule the restarts
         for (String restartTime : this.restartTimes) {
-            if (!restartScheduler.scheduleRestart(restartTime, messages, titles, subtitles, commands)) {
+            if (!restartScheduler.scheduleRestart(restartTime, messages, titles, subtitles, commands, ignorePlayers)) {
                 getLogger().severe("Failed to schedule the restart for: " + restartTime);
             }
         }
@@ -123,6 +124,9 @@ public final class SimpleAutoRestart extends JavaPlugin {
             }
         }
 
+        // Load the ignorePlayer setting
+        this.ignorePlayers = config.getBoolean("ignorePlayers", false);
+
         // Load the commands from the config
         this.commands = config.getStringList("commands");
         if (this.commands.isEmpty()) {
@@ -159,5 +163,9 @@ public final class SimpleAutoRestart extends JavaPlugin {
 
     public List<String> getCommands() {
         return commands;
+    }
+
+    public boolean getIgnorePlayers() {
+        return ignorePlayers;
     }
 }
