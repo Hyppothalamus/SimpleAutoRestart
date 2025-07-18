@@ -57,7 +57,7 @@ public class RestartScheduler {
                                 player.sendTitle(_titles.get(delay), null, 10, 70, 20);
                             });
                         } else {
-                            Bukkit.broadcastMessage("Title canceled because players are online.");
+                            Bukkit.getLogger().info("Title cancelled because players are online.");
                         }
                 }
             }, (initialDelayInSeconds - delay) * 1000);
@@ -76,7 +76,7 @@ public class RestartScheduler {
                                 player.sendTitle(null, _subtitles.get(delay), 10, 70, 20);
                             });
                         } else {
-                            Bukkit.broadcastMessage("Subtitle canceled because players are online.");
+                            Bukkit.getLogger().info("Subtitle cancelled because players are online.");
                         }
                 }
             }, (initialDelayInSeconds - delay) * 1000);
@@ -93,7 +93,7 @@ public class RestartScheduler {
                             if (ignorePlayers || Bukkit.getOnlinePlayers().isEmpty()) {
                                 _commands.forEach(command -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command));
                             } else {
-                                Bukkit.broadcastMessage("Restart canceled because players are online.");
+                                Bukkit.broadcastMessage("Restart cancelled because players are online.");
                             }
                         }
                     }
