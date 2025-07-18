@@ -81,11 +81,13 @@ public class RestartScheduler {
                 Bukkit.getScheduler().runTask(plugin, new Runnable() {
                     @Override
                     public void run() {
-                        if (!RestartScheduler.this.isRestartCanceled() &&
-                                (!ignorePlayers && Bukkit.getOnlinePlayers().isEmpty()))
-                            _commands.forEach(command -> {
-                                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
-                            });
+                        if (!RestartScheduler.this.isRestartCanceled()) {
+                            if (ignorePlayers || Bukkit.getOnlinePlayers().isEmpty()) {
+                                _commands.forEach(command -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command));
+                            } else {
+                                Bukkit.broadcastMessage("Restart canceled because players are online.");
+                            }
+                        }
                     }
                 });
             }
