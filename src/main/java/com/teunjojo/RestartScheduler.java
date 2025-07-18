@@ -52,9 +52,13 @@ public class RestartScheduler {
                 @Override
                 public void run() {
                     if (!RestartScheduler.this.isRestartCanceled())
-                        Bukkit.getOnlinePlayers().forEach(player -> {
-                            player.sendTitle(_titles.get(delay), null, 10, 70, 20);
-                        });
+                        if (ignorePlayers || Bukkit.getOnlinePlayers().isEmpty()) {
+                            Bukkit.getOnlinePlayers().forEach(player -> {
+                                player.sendTitle(_titles.get(delay), null, 10, 70, 20);
+                            });
+                        } else {
+                            Bukkit.broadcastMessage("Title canceled because players are online.");
+                        }
                 }
             }, (initialDelayInSeconds - delay) * 1000);
         }
@@ -67,9 +71,13 @@ public class RestartScheduler {
                 @Override
                 public void run() {
                     if (!RestartScheduler.this.isRestartCanceled())
-                        Bukkit.getOnlinePlayers().forEach(player -> {
-                            player.sendTitle(null, _subtitles.get(delay), 10, 70, 20);
-                        });
+                        if (ignorePlayers || Bukkit.getOnlinePlayers().isEmpty()) {
+                            Bukkit.getOnlinePlayers().forEach(player -> {
+                                player.sendTitle(null, _subtitles.get(delay), 10, 70, 20);
+                            });
+                        } else {
+                            Bukkit.broadcastMessage("Subtitle canceled because players are online.");
+                        }
                 }
             }, (initialDelayInSeconds - delay) * 1000);
         }
